@@ -56,7 +56,8 @@ export default class LineController extends DatasetController {
     const vAxis = vScale.axis;
     const {spanGaps, segment} = this.options;
     const maxGapLength = isNumber(spanGaps) ? spanGaps : Number.POSITIVE_INFINITY;
-    const directUpdate = this.chart._animationsDisabled || reset || mode === 'none';
+    const disableDirectUpdate = this.chart.config._config ? this.chart.config._config.options ? this.chart.config._config.options.disableDirectUpdate : false : false;
+    const directUpdate = !disableDirectUpdate && (this.chart._animationsDisabled || reset || mode === 'none');
     let prevParsed = start > 0 && this.getParsed(start - 1);
 
     for (let i = start; i < start + count; ++i) {
